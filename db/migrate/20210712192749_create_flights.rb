@@ -6,6 +6,7 @@ class CreateFlights < ActiveRecord::Migration[5.2]
       t.datetime :arrival
       t.integer :flight_num
       t.integer :max_cap
+      t.string :destination
     end
   end
 end

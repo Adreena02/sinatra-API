@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_07_12_192951) do
     t.datetime "arrival"
     t.integer "flight_num"
     t.integer "max_cap"
+    t.string "destination"
   end
 
   create_table "passengers", force: :cascade do |t|
@@ -28,7 +29,6 @@ ActiveRecord::Schema.define(version: 2021_07_12_192951) do
   create_table "tickets", force: :cascade do |t|
     t.integer "passenger_id"
     t.integer "flight_id"
-    t.string "destination"
   end
 
 end
