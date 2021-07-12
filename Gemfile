@@ -16,6 +16,10 @@ gem 'pry'
 gem 'bcrypt'
 gem 'tux'
 
+gem 'activerecord-reset-pk-sequence'
+
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+
 group :test do
   gem 'rspec'
   gem 'capybara'
