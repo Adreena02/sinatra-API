@@ -19,7 +19,12 @@ class ApplicationController < Sinatra::Base
   end
   
   post "/new_ticket" do
-    puts params.inspect
-    ticket_params = params.select do
+    # puts params.inspect
+    # ticket_params = params.find do |key|
+    #   ["flight_id","passenger_id"].include?(key)
+    # end
+    ticket = Ticket.create(passenger_id: params[:passenger_id], flight_id: params[:flight_id])
+    ticket.to_json
+  end
 
 end
