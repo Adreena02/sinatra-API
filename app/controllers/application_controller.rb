@@ -24,6 +24,7 @@ class ApplicationController < Sinatra::Base
     #   ["flight_id","passenger_id"].include?(key)
     # end
     ticket = Ticket.create(passenger_id: params[:passenger_id], flight_id: params[:flight_id])
+    #ticket.any_instance_method
     ticket.to_json
   end
 
