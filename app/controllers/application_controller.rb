@@ -9,13 +9,17 @@ class ApplicationController < Sinatra::Base
   end
 
   options "*" do
-    response.headers["Allow"] = "HEAD,GET,PUT,POST,DELETE,OPTIONS"
+    response.headers["Allow"] = "HEAD,GET,PUT,PATCH,POST,DELETE,OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
     200
   end
 
-  # method "URL" do
-    
-  # end
+  get "/flights" do 
+    Flight.all.to_json
+  end
+  
+  post "/new_ticket" do
+    puts params.inspect
+    ticket_params = params.select do
 
 end
