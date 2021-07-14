@@ -19,11 +19,15 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/destinations' do 
-    Flight.destinations.to_json
+    Destination.all.to_json
   end
 
   get "/tickets_for_passenger" do
     Tickets.all
+  end
+
+  get "/flights_to_destination/:id" do
+      Flight.all.where(destination_id: params[:id]).to_json
   end
   
   post "/new_ticket" do
