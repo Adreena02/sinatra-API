@@ -17,6 +17,14 @@ class ApplicationController < Sinatra::Base
   get "/flights" do 
     Flight.all.to_json
   end
+
+  get '/destinations' do 
+    Flight.destinations.to_json
+  end
+
+  get "/tickets_for_passenger" do
+    Tickets.all
+  end
   
   post "/new_ticket" do
     # puts params.inspect

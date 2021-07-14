@@ -10,4 +10,8 @@ class Flight < ActiveRecord::Base
         self.tickets.each {|ticket| ticket.destroy}
         self.destroy
     end
+
+    def self.destinations
+        self.all.collect{|flight| flight.destination}.uniq
+    end
 end
