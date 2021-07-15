@@ -46,6 +46,6 @@ class ApplicationController < Sinatra::Base
   end
 
   delete "/delete_ticket/:id" do
-    Ticket.find_by(id: params[:id]).destroy
+    Ticket.find_by(id: params[:id]).destroy.to_json
   end
 end
