@@ -22,8 +22,12 @@ class ApplicationController < Sinatra::Base
     Destination.all.to_json
   end
 
-  get "/tickets_for_passenger" do
-    Tickets.all
+  get '/passengers' do
+    Passenger.all.to_json
+  end
+
+  get "/passenger_tickets/:id" do
+    Ticket.all.where(passenger_id: params[:id]).to_json
   end
 
   get "/flights_to_destination/:id" do
