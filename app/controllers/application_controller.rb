@@ -27,7 +27,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/passenger_tickets/:id" do
-    Ticket.all.where(passenger_id: params[:id]).to_json
+    Ticket.all.where(passenger_id: params[:id]).map{|ticket| {flight: Flight.all.find_by(id: ticket.id)}}.to_json
   end
 
   get "/flights_to_destination/:id" do

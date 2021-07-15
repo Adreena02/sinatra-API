@@ -12,8 +12,9 @@ Destination.reset_pk_sequence
 
 
 puts "Seeding passengers..."
+
 20.times do
-    Passenger.create(name: Faker::TvShows::ParksAndRec.character, age: rand(20..60))
+    Passenger.create(name: Faker::Name.unique.name, age: rand(20..60))
 end
 
 puts "Seeding destinations..."
