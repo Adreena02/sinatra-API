@@ -8,6 +8,10 @@ class ApplicationController < Sinatra::Base
     set :expose_headers, ['Content-Type']
   end
 
+  before do
+    response.headers['Access-Control-Allow-Origin'] = '*'
+  end
+
   options "*" do
     response.headers["Allow"] = "HEAD,GET,PUT,PATCH,POST,DELETE,OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
@@ -27,7 +31,9 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/passenger_tickets/:id" do
-    Ticket.all.where(passenger_id: params[:id]).map{|ticket|Flight.all.find_by(id: ticket.id)}.map{|flight| {id: flight.id, airline_name: flight.airline_name, departure: flight.departure, arrival: flight.arrival, flight_num: flight.flight_num, max_cap: flight.max_cap, destination: Destination.all.find_by(id: flight.id).location_name }}.to_json
+    # Ticket.all.where(passenger_id: params[:id]).map{|ticket|Flight.all.find_by(id: ticket.id)}.map{|flight| {id: flight.id, airline_name: flight.airline_name, departure: flight.departure, arrival: flight.arrival, flight_num: flight.flight_num, max_cap: flight.max_cap, destination: Destination.all.find_by(id: flight.id).location_name }}.to_json
+
+    Passenger.find_by(id: params[:id]).flights.to_json(include: :destination)
   end
 
   get "/flights_to_destination/:id" do
@@ -35,12 +41,7 @@ class ApplicationController < Sinatra::Base
   end
   
   post "/new_ticket" do
-    # puts params.inspect
-    # ticket_params = params.find do |key|
-    #   ["flight_id","passenger_id"].include?(key)
-    # end
     ticket = Ticket.create(passenger_id: params[:passenger_id], flight_id: params[:flight_id])
-    #ticket.any_instance_method
     ticket.to_json
   end
 
