@@ -27,7 +27,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/passenger_tickets/:id" do
-    Ticket.all.where(passenger_id: params[:id]).map{|ticket| {flight: Flight.all.find_by(id: ticket.id)}}.to_json
+    Ticket.all.where(passenger_id: params[:id]).map{|ticket|Flight.all.find_by(id: ticket.id)}.map{|flight| {id: flight.id, airline_name: flight.airline_name, departure: flight.departure, arrival: flight.arrival, flight_num: flight.flight_num, max_cap: flight.max_cap, destination: Destination.all.find_by(id: flight.id).location_name }}.to_json
   end
 
   get "/flights_to_destination/:id" do
@@ -44,4 +44,7 @@ class ApplicationController < Sinatra::Base
     ticket.to_json
   end
 
+  delete "/delete_ticket/:id" do
+    Ticket.find_by(id: params[:id]).destroy
+  end
 end
