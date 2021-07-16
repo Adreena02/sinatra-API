@@ -19,7 +19,7 @@ end
 
 puts "Seeding destinations..."
 20.times do
-    Destination.create(location_name: Faker::Fantasy::Tolkien.location)
+    Destination.create(location_name: Faker::Nation.capital_city)
 end
 
 puts "Seeding flights..."
