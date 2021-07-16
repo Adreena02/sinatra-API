@@ -15,4 +15,8 @@ class Flight < ActiveRecord::Base
     def self.destinations
         self.all.collect{|flight| flight.destination}.uniq
     end
+
+    def pass_tix
+        
+    end
 end
