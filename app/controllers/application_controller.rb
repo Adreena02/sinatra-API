@@ -8,9 +8,9 @@ class ApplicationController < Sinatra::Base
     set :expose_headers, ['Content-Type']
   end
 
-  before do
-    response.headers['Access-Control-Allow-Origin'] = '*'
-  end
+  # before do
+  #   response.headers['Access-Control-Allow-Origin'] = '*'
+  # end
 
   options "*" do
     response.headers["Allow"] = "HEAD,GET,PUT,PATCH,POST,DELETE,OPTIONS"
@@ -33,7 +33,7 @@ class ApplicationController < Sinatra::Base
   get "/passenger_tickets/:id" do
     # Ticket.all.where(passenger_id: params[:id]).map{|ticket|Flight.all.find_by(id: ticket.id)}.map{|flight| {id: flight.id, airline_name: flight.airline_name, departure: flight.departure, arrival: flight.arrival, flight_num: flight.flight_num, max_cap: flight.max_cap, destination: Destination.all.find_by(id: flight.id).location_name }}.to_json
 
-    Passenger.find_by(id: params[:id]).flights.to_json(include: :destination)
+    Passenger.find_by(id: params[:id]).flights.to_json(include: [:destination, :tickets])
   end
 
   get "/flights_to_destination/:id" do
@@ -46,6 +46,6 @@ class ApplicationController < Sinatra::Base
   end
 
   delete "/delete_ticket/:id" do
-    Ticket.find_by(id: params[:id]).destroy.to_json
+    Ticket.find_by(id: params[:id]).delete.to_json
   end
 end
